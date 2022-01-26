@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from nba_api.stats.static import players
 from nba_api.stats.endpoints import  playergamelog
 import json
@@ -31,14 +31,14 @@ def season_query(p_name, season, mode):
         stats_sum = relevant_stats.sum()
         for info in player_to_query:
             stats_sum[info] = player_query[info]
-        return stats_sum.to_json()
+        return jsonify(stats_sum)
 
     elif mode == "avg":
         stats_avg = relevant_stats.mean()
         for info in player_to_query:
             stats_avg[info] = player_query[info]
         
-        return stats_avg.to_json()
+        return jsonify(stats_avg)
 
 if __name__ == "__main__":
     app.run(debug=True)
