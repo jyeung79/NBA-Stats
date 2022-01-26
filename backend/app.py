@@ -31,14 +31,17 @@ def season_query(p_name, season, mode):
         stats_sum = relevant_stats.sum()
         for info in player_to_query:
             stats_sum[info] = player_query[info]
-        return jsonify(stats_sum.to_dict())
+        response = jsonify(stats_sum.to_dict())
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
 
     elif mode == "avg":
         stats_avg = relevant_stats.mean()
         for info in player_to_query:
             stats_avg[info] = player_query[info]
-        
-        return jsonify(stats_avg.to_dict())
+        response = jsonify(stats_avg.to_dict())
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
 
 if __name__ == "__main__":
     app.run(debug=True)
